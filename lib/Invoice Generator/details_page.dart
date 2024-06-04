@@ -22,7 +22,7 @@ class _DetailsPageState extends State<DetailsPage> {
         appBar: AppBar(
           title: Text(
             '${invoiceList[SelectedIndex!].category}',
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white, fontSize: width * 0.05),
           ),
           centerTitle: true,
           backgroundColor: Colors.blue,
@@ -42,8 +42,8 @@ class _DetailsPageState extends State<DetailsPage> {
               Navigator.of(context).pushNamed('/pdf');
             },
             child: Container(
-                height: 70,
-                width: 70,
+                height: height * 0.1,
+                width: width * 0.2,
                 decoration: const BoxDecoration(
                     color: Colors.blue, shape: BoxShape.circle),
                 child: const Icon(
@@ -70,20 +70,20 @@ Padding invoiceBill(double width) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'Customer',
-              style: TextStyle(fontSize: 26, color: Colors.black87),
+              style: TextStyle(fontSize: width * 0.064, color: Colors.black87),
             ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  decoration: BoxDecoration(color: Colors.red),
-                  child: Text('    ${invoiceList[SelectedIndex!].name}',
-                      style:
-                          TextStyle(fontSize: width * 0.084, color: Colors.grey)),
-                ),
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('    ${invoiceList[SelectedIndex!].name}',
+                    style:
+                        TextStyle(fontSize: width * 0.084, color: Colors.grey)),
+                Text('    ${invoiceList[SelectedIndex!].surName}',
+                    style:
+                        TextStyle(fontSize: width * 0.084, color: Colors.grey)),
+              ],
             ),
           ],
         ),
@@ -92,36 +92,36 @@ Padding invoiceBill(double width) {
           color: Color(0xffc3c3c3ff),
         ),
         const SizedBox(height: 8),
-        const Text(
+        Text(
           'Invoice Items',
-          style: TextStyle(fontSize: 23, color: Colors.black),
+          style: TextStyle(fontSize: width * 0.058, color: Colors.black),
         ),
         ...List.generate(
           showDetails.length,
           (index) => ListTile(
             leading: Text(
               showDetails[index]['costName'].text,
-              style: const TextStyle(fontSize: 18, color: Colors.grey),
+              style: TextStyle(fontSize: width * 0.047, color: Colors.grey),
             ),
             trailing: Text(
               showDetails[index]['Cost'].text,
-              style: const TextStyle(fontSize: 18, color: Colors.grey),
+              style: TextStyle(fontSize: width * 0.047, color: Colors.grey),
             ),
           ),
         ),
         ListTile(
-          leading: const Text(
+          leading: Text(
             'Total',
-            style: TextStyle(color: Colors.black54, fontSize: 30),
+            style: TextStyle(color: Colors.black54, fontSize: width * 0.076),
           ),
           trailing: Text(
             '${totalList[SelectedIndex!].toDouble()}/-',
-            style: const TextStyle(color: Colors.black54, fontSize: 30),
+            style: TextStyle(color: Colors.black54, fontSize: width * 0.076),
           ),
         ),
         const Divider(
           thickness: 2,
-          color: Color(0xffc3c3c3ff),
+          color: Color(0xffc3c3c3),
         ),
       ],
     ),

@@ -3,6 +3,7 @@ import 'fill_information.dart';
 
 GlobalKey<FormState> formkey = GlobalKey();
 TextEditingController txtName = TextEditingController();
+TextEditingController txtSurName = TextEditingController();
 TextEditingController txtCategory = TextEditingController();
 TextEditingController txtCost = TextEditingController();
 TextEditingController txtCostName = TextEditingController();
@@ -23,8 +24,8 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
       child: Scaffold(
         appBar: AppBar(
           leading: const Icon(
-            Icons.arrow_back,
-            color: Colors.blue,
+            Icons.menu,
+            color: Colors.white,
           ),
           toolbarHeight: 70,
           backgroundColor: Colors.blue,
@@ -65,18 +66,26 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            txtCost = TextEditingController();
-            txtCostName = TextEditingController();
-            costDetails = [
-              {'costName': txtCostName, 'Cost': txtCost}
-            ];
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const FillDetails()));
-          },
-          child: const Icon(Icons.add),
-        ),
+        floatingActionButton: GestureDetector(
+            onTap: () {
+              txtCost = TextEditingController();
+              txtCostName = TextEditingController();
+              costDetails = [
+                {'costName': txtCostName, 'Cost': txtCost}
+              ];
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const FillDetails()));
+            },
+            child: Container(
+                height: height * 0.1,
+                width: width * 0.2,
+                decoration: const BoxDecoration(
+                    color: Colors.blue, shape: BoxShape.circle),
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 35,
+                ))),
       ),
     );
   }
@@ -89,7 +98,7 @@ List costList = [];
 List showDetails = [];
 
 class InvoiceModel {
-  String? name, category;
+  String? name, surName, category;
 
-  InvoiceModel({this.name, this.category});
+  InvoiceModel({this.name, this.surName, this.category});
 }

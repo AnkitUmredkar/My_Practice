@@ -36,7 +36,7 @@ class _FillDetailsState extends State<FillDetails> {
             padding: const EdgeInsets.all(15),
             child: Column(
               children: [
-                //todo------------------------> Name And Category
+                //todo------------------------> Name,SurName And Category
                 Container(
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
@@ -66,28 +66,46 @@ class _FillDetailsState extends State<FillDetails> {
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            label: const Text('User Name')),
+                            label: const Text('First Name')),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 20),
+                        margin: const EdgeInsets.only(top: 20, bottom: 20),
                         child: TextFormField(
                           textInputAction: TextInputAction.next,
-                          controller: txtCategory,
+                          controller: txtSurName,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Field Must Be Required';
                             }
                           },
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.grey,
-                                width: 2,
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Colors.grey,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
                               ),
-                              borderRadius: BorderRadius.circular(5),
+                              label: const Text('Last Name')),
+                        ),
+                      ),
+                      TextFormField(
+                        textInputAction: TextInputAction.next,
+                        controller: txtCategory,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Field Must Be Required';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.grey,
+                              width: 2,
                             ),
-                            label: const Text('Type of Expense'),
+                            borderRadius: BorderRadius.circular(5),
                           ),
+                          label: const Text('Type of Expense'),
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -174,8 +192,24 @@ class _FillDetailsState extends State<FillDetails> {
                                 keyboardType: TextInputType.number,
                                 controller: costDetails[index]['Cost'],
                                 validator: (value) {
+                                  bool ck = false;
                                   if (value!.isEmpty) {
                                     return 'Field Must Be Required';
+                                  }
+
+                                  for (int i = 0; i < value.length; i++) {
+                                    number.add(value[i]);
+                                  }
+
+                                  for (int i = 0; i < value.length; i++) {
+                                    int charCode = value.codeUnitAt(i);
+                                    if (!(charCode >= 48 && charCode <= 57)) {
+                                      ck = true;
+                                    }
+                                  }
+
+                                  if (ck) {
+                                    return 'String is not Allow in this Field';
                                   }
                                 },
                                 decoration: InputDecoration(
@@ -205,15 +239,15 @@ class _FillDetailsState extends State<FillDetails> {
                           invoiceList.add(
                             InvoiceModel(
                               name: txtName.text,
+                              surName: txtSurName.text,
                               category: txtCategory.text,
                             ),
                           );
                           costList.add(costDetails);
                           total = 0;
                           for (int i = 0; i < costDetails.length; i++) {
-                            int subtotal =
-                                int.parse(costDetails[i]['Cost'].text);
-                            total = total + subtotal;
+                            total =
+                                total + int.parse(costDetails[i]['Cost'].text);
                           }
                           totalList.add(total.toDouble());
                           Navigator.pushReplacement(
@@ -222,6 +256,7 @@ class _FillDetailsState extends State<FillDetails> {
                                   builder: (context) =>
                                       const InvoiceGenerator()));
                           txtName.clear();
+                          txtSurName.clear();
                           txtCategory.clear();
                         }
                       });
@@ -243,3 +278,4 @@ class _FillDetailsState extends State<FillDetails> {
 
 int total = 0;
 List totalList = [];
+List number = [];
