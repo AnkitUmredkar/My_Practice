@@ -58,7 +58,7 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
                   Text(
                     'Generate Your Invoice',
                     style:
-                        TextStyle(color: Colors.white, fontSize: width * 0.062),
+                        TextStyle(color: Colors.white, fontSize: width * 0.068),
                   )
                 ],
               )
