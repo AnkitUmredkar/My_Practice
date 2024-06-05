@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:typed_data';
 import 'package:modify_text/Invoice%20Generator/fill_information.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +38,16 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
           ),
         ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: invoiceBill(width),
+          ),
+        ),
         floatingActionButton: GestureDetector(
             onTap: () {
+              Random random = Random();
+              invoiceNumber = random.nextInt(1000000);
               Navigator.of(context).pushNamed('/pdf');
             },
             child: Container(
@@ -51,12 +60,6 @@ class _DetailsPageState extends State<DetailsPage> {
                   color: Colors.white,
                   size: 30,
                 ))),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: invoiceBill(width),
-          ),
-        ),
       ),
     );
   }
@@ -112,11 +115,11 @@ Padding invoiceBill(double width) {
         ListTile(
           leading: Text(
             'Total',
-            style: TextStyle(color: Colors.black54, fontSize: width * 0.076),
+            style: TextStyle(color: Colors.black87, fontSize: width * 0.076),
           ),
           trailing: Text(
             '${totalList[SelectedIndex!].toDouble()}/-',
-            style: TextStyle(color: Colors.black54, fontSize: width * 0.076),
+            style: TextStyle(color: Colors.black87, fontSize: width * 0.076),
           ),
         ),
         const Divider(
@@ -127,3 +130,5 @@ Padding invoiceBill(double width) {
     ),
   );
 }
+
+int invoiceNumber = 0;

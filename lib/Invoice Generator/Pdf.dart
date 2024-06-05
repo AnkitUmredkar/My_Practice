@@ -49,86 +49,198 @@ class _PdfGeneratorState extends State<PdfGenerator> {
 Future<Uint8List> generatePdf(double width, double height) async {
   final pdf = pd.Document();
   final icon1 = await imageFromAssetBundle('assets/images/icon.png');
+  final scan = await imageFromAssetBundle('assets/images/qr.png');
+
   pdf.addPage(
-    pd.Page(
-      build: (context) => pd.Column(
-        crossAxisAlignment: pd.CrossAxisAlignment.center,
-        children: [
-          pd.Table(
-            border: pd.TableBorder.all(color: PdfColors.black, width: 2),
-            defaultVerticalAlignment: pd.TableCellVerticalAlignment.middle,
-            columnWidths: {
-              0: const pd.FixedColumnWidth(160),
-              1: const pd.FixedColumnWidth(60),
-            },
+    pd.MultiPage(
+      margin: pd.EdgeInsets.zero,
+      build: (context) => [
+        pd.Container(
+          padding: const pd.EdgeInsets.fromLTRB(45, 20, 45, 20),
+          decoration: const pd.BoxDecoration(
+            color: PdfColor.fromInt(0xff091A3F),
+          ),
+          child: pd.Row(
+            mainAxisAlignment: pd.MainAxisAlignment.spaceBetween,
             children: [
-              pd.TableRow(
+              pd.Text('L&T Finance',
+                  style: pd.TextStyle(
+                      color: PdfColors.white,
+                      fontWeight: pd.FontWeight.bold,
+                      fontSize: width * 0.08)),
+              pd.Image(scan, height: width * 0.15),
+            ],
+          ),
+        ),
+        pd.Padding(
+          padding: const pd.EdgeInsets.fromLTRB(45, 25, 45, 15),
+          child: pd.Column(
+            children: [
+              pd.Row(
+                mainAxisAlignment: pd.MainAxisAlignment.spaceBetween,
                 children: [
-                  pd.Padding(
-                    padding: const pd.EdgeInsets.all(24),
-                    child: pd.Center(
-                      child: pd.Text(
-                        'INVOICE FOR PAYMENT',
-                        style: pd.TextStyle(
-                            fontSize: 20, fontWeight: pd.FontWeight.bold),
-                      ),
-                    ),
+                  pd.Column(
+                    crossAxisAlignment: pd.CrossAxisAlignment.start,
+                    children: [
+                      pd.Text('Bill To :',
+                          style: pd.TextStyle(
+                              color: const PdfColor.fromInt(0xff383738),
+                              fontWeight: pd.FontWeight.bold,
+                              fontSize: width * 0.05)),
+                      pd.Text(
+                          '${invoiceList[SelectedIndex!].name} ${invoiceList[SelectedIndex!].surName}',
+                          style: pd.TextStyle(
+                              color: const PdfColor.fromInt(0xff383738),
+                              fontWeight: pd.FontWeight.bold,
+                              fontSize: width * 0.04)),
+                      pd.Text('RJD Business Hub,',
+                          style: pd.TextStyle(
+                              color: const PdfColor.fromInt(0xff383738),
+                              fontWeight: pd.FontWeight.bold,
+                              fontSize: width * 0.04)),
+                      pd.Text('Katargam,',
+                          style: pd.TextStyle(
+                              color: const PdfColor.fromInt(0xff383738),
+                              fontWeight: pd.FontWeight.bold,
+                              fontSize: width * 0.04)),
+                      pd.Text('Surat, Gujarat 395004',
+                          style: pd.TextStyle(
+                              color: const PdfColor.fromInt(0xff383738),
+                              fontWeight: pd.FontWeight.bold,
+                              fontSize: width * 0.04)),
+                    ],
                   ),
+                  pd.Column(
+                    crossAxisAlignment: pd.CrossAxisAlignment.end,
+                    children: [
+                      pd.Align(
+                          alignment: pd.Alignment.centerRight,
+                          child: pd.Text('Invoice Number',
+                              style: pd.TextStyle(
+                                  fontWeight: pd.FontWeight.bold,
+                                  fontSize: width * 0.045,
+                                  color: const PdfColor.fromInt(0xff383738)))),
+                      pd.Align(
+                        alignment: pd.Alignment.centerRight,
+                        child: pd.Text('$invoiceNumber',
+                            style: pd.TextStyle(fontSize: width * 0.04)),
+                      ),
+                      pd.SizedBox(height: 2),
+                      pd.Align(
+                          alignment: pd.Alignment.centerRight,
+                          child: pd.Text('Date',
+                              style: pd.TextStyle(
+                                  fontWeight: pd.FontWeight.bold,
+                                  fontSize: width * 0.045,
+                                  color: const PdfColor.fromInt(0xff383738)))),
+                      pd.Align(
+                        alignment: pd.Alignment.centerRight,
+                        child: pd.Text('${invoiceList[SelectedIndex!].dueDate}',
+                            style: pd.TextStyle(fontSize: width * 0.04)),
+                      ),
+                      pd.SizedBox(height: 2),
+                      pd.Align(
+                          alignment: pd.Alignment.centerRight,
+                          child: pd.Text('Due Date',
+                              style: pd.TextStyle(
+                                  fontWeight: pd.FontWeight.bold,
+                                  fontSize: width * 0.045,
+                                  color: const PdfColor.fromInt(0xff383738)))),
+                      pd.Align(
+                        alignment: pd.Alignment.centerRight,
+                        child: pd.Text('${invoiceList[SelectedIndex!].date}',
+                            style: pd.TextStyle(fontSize: width * 0.04)),
+                      ),
+                    ],
+                  )
                 ],
               ),
-              ...List.generate(
-                showDetails.length,
-                (index) => row(showDetails[index]['costName'].text,
-                    '${showDetails[index]['Cost'].text}/-', width, icon1),
+              pd.SizedBox(height: height * 0.03),
+              pd.Table(
+                border: pd.TableBorder.all(color: PdfColors.black, width: 2),
+                defaultVerticalAlignment: pd.TableCellVerticalAlignment.middle,
+                columnWidths: {
+                  0: const pd.FixedColumnWidth(160),
+                  1: const pd.FixedColumnWidth(60),
+                },
+                children: [
+                  pd.TableRow(
+                    children: [
+                      pd.Padding(
+                        padding: const pd.EdgeInsets.all(24),
+                        child: pd.Center(
+                          child: pd.Text(
+                            'INVOICE FOR PAYMENT',
+                            style: pd.TextStyle(
+                                fontSize: 20, fontWeight: pd.FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  ...List.generate(
+                    showDetails.length,
+                    (index) => row(showDetails[index]['costName'].text,
+                        '${showDetails[index]['Cost'].text}/-', width, icon1),
+                  ),
+                  taxAndTotal(
+                      'Tax',
+                      '${totalList[SelectedIndex!] * 18 / 100}/-',
+                      width,
+                      icon1),
+                  taxAndTotal(
+                      'Total',
+                      '${totalList[SelectedIndex!] + totalList[SelectedIndex!] * 18 / 100}/-',
+                      width,
+                      icon1),
+                ],
               ),
-              taxAndTotal('Tax', '${totalList[SelectedIndex!] * 18 / 100}/-',
-                  width, icon1),
-              taxAndTotal(
-                  'Total',
-                  '${totalList[SelectedIndex!] + totalList[SelectedIndex!] * 18 / 100}/-',
-                  width,
-                  icon1),
+              pd.SizedBox(height: height * 0.04),
+              pd.Text('THANK YOU FOR YOUR BUSINESS!',
+                  style: pd.TextStyle(
+                      fontWeight: pd.FontWeight.bold, fontSize: width * 0.05)),
+              pd.SizedBox(height: height * 0.038),
+              pd.Text(
+                  'Please forward the below slip to your account payment department!',
+                  style: pd.TextStyle(
+                      fontWeight: pd.FontWeight.bold, fontSize: width * 0.037)),
+              pd.Divider(borderStyle: pd.BorderStyle.dashed),
+              pd.SizedBox(height: height * 0.038),
+              pd.Table(
+                border: pd.TableBorder.all(color: PdfColors.black, width: 2),
+                defaultVerticalAlignment: pd.TableCellVerticalAlignment.middle,
+                columnWidths: {
+                  0: const pd.FixedColumnWidth(50),
+                  1: const pd.FixedColumnWidth(35),
+                },
+                children: [
+                  accountDetails(
+                      'Account Number', '1234 1234', width, 1, icon1),
+                  accountDetails(
+                      'Account Name', 'L&T Finance', width, 2, icon1),
+                  accountDetails(
+                      'Total Amount to be Paid',
+                      '${totalList[SelectedIndex!] + totalList[SelectedIndex!] * 18 / 100}/-',
+                      width,
+                      3,
+                      icon1),
+                ],
+              ),
+              pd.SizedBox(height: height * 0.042),
+              pd.Text(
+                  'Please ensure all checks are payable to the L & T Finance Trust.',
+                  style: pd.TextStyle(
+                      fontWeight: pd.FontWeight.bold,
+                      fontSize: width * 0.04,
+                      fontStyle: pd.FontStyle.italic)),
             ],
           ),
-          pd.SizedBox(height: height * 0.036),
-          pd.Text('THANK YOU FOR YOUR BUSINESS!',
-              style: pd.TextStyle(
-                  fontWeight: pd.FontWeight.bold, fontSize: width * 0.05)),
-          pd.SizedBox(height: height * 0.037),
-          pd.Text(
-              'Please forward the below slip to your account payment department!',
-              style: pd.TextStyle(
-                  fontWeight: pd.FontWeight.bold, fontSize: width * 0.035)),
-          pd.Divider(borderStyle: pd.BorderStyle.dashed),
-          pd.SizedBox(height: height * 0.042),
-          pd.Table(
-            border: pd.TableBorder.all(color: PdfColors.black, width: 2),
-            defaultVerticalAlignment: pd.TableCellVerticalAlignment.middle,
-            children: [
-              accountDetails('Account Number', '1234 1234', width, 1, icon1),
-              accountDetails(
-                  'Account Name', 'Adam Family Trust', width, 2, icon1),
-              accountDetails(
-                  'Total Amount to be Paid',
-                  '${totalList[SelectedIndex!] + totalList[SelectedIndex!] * 18 / 100}/-',
-                  width,
-                  3,
-                  icon1),
-            ],
-          ),
-          pd.SizedBox(height: height * 0.042),
-          pd.Text(
-              'Please ensure all checks are payable to the ADAM FAMILY TRUST.',
-              style: pd.TextStyle(
-                  fontWeight: pd.FontWeight.bold,
-                  fontSize: width * 0.04,
-                  fontStyle: pd.FontStyle.italic)),
-        ],
-      ),
+        )
+      ],
     ),
   );
 
-  pdf.addPage(pd.Page(build: (context) => pd.Center()));
+  // pdf.addPage(pd.Page(build: (context) => pd.Center()));
   return pdf.save();
 }
 
@@ -198,7 +310,7 @@ pd.TableRow accountDetails(
         padding: const pd.EdgeInsets.all(10),
         child: pd.Text(
           data,
-          style: pd.TextStyle(fontSize: width * 0.047),
+          style: pd.TextStyle(fontSize: width * 0.046),
         ),
       ),
       (check == 3)
@@ -209,7 +321,7 @@ pd.TableRow accountDetails(
                   pd.Image(img, height: 14),
                   pd.Text(
                     prize,
-                    style: pd.TextStyle(fontSize: width * 0.048),
+                    style: pd.TextStyle(fontSize: width * 0.046),
                   ),
                 ],
               ),

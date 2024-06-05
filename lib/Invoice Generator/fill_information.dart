@@ -46,7 +46,7 @@ class _FillDetailsState extends State<FillDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Enter Name and Category",
+                        "Fill Below Details",
                         style: TextStyle(fontSize: 20),
                       ),
                       const SizedBox(height: 12),
@@ -108,6 +108,93 @@ class _FillDetailsState extends State<FillDetails> {
                           label: const Text('Type of Expense'),
                         ),
                       ),
+                      const SizedBox(height: 20),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     setState(() async {
+                      //       DateTime? datePicked = await showDatePicker(
+                      //           barrierColor: Colors.black54,
+                      //           context: context,
+                      //           firstDate: DateTime(1900),
+                      //           initialDate: DateTime.now(),
+                      //           lastDate: DateTime.now());
+                      //       if (datePicked != null) {
+                      //         date =
+                      //             '${datePicked.day}/${datePicked.month}/${datePicked.year}';
+                      //         txtDate.text = date;
+                      //       }
+                      //     });
+                      //   },
+                      //   child: AbsorbPointer(
+                      //     absorbing: true,
+                      //     child: TextFormField(
+                      //       validator: (value) {
+                      //         if (value!.isEmpty) {
+                      //           return 'Field Must be Required!';
+                      //         }
+                      //       },
+                      //       controller: txtDate,
+                      //       autofocus: false,
+                      //       decoration: InputDecoration(
+                      //         border: OutlineInputBorder(
+                      //           borderSide: const BorderSide(
+                      //             color: Colors.grey,
+                      //             width: 2,
+                      //           ),
+                      //           borderRadius: BorderRadius.circular(5),
+                      //         ),
+                      //         label: const Text('Announce Date'),
+                      //         hintText: 'Announce Date',
+                      //         // enabledBorder: buildOutlineInputBorder(1),
+                      //         // focusedBorder: buildOutlineInputBorder(2),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // const SizedBox(height: 20),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     setState(() async {
+                      //       DateTime? datePicked = await showDatePicker(
+                      //           barrierDismissible: false,
+                      //           barrierColor: Colors.black54,
+                      //           context: context,
+                      //           firstDate: DateTime.now(),
+                      //           initialDate: DateTime.now(),
+                      //           lastDate: DateTime(2025));
+                      //       if (datePicked != null) {
+                      //         dueDate =
+                      //             '${datePicked.day}/${datePicked.month}/${datePicked.year}';
+                      //         txtDueDate.text = dueDate;
+                      //       }
+                      //     });
+                      //   },
+                      //   child: AbsorbPointer(
+                      //     absorbing: true,
+                      //     child: TextFormField(
+                      //       validator: (value) {
+                      //         if (value!.isEmpty) {
+                      //           return 'Field Must be Required!';
+                      //         }
+                      //       },
+                      //       controller: txtDueDate,
+                      //       autofocus: false,
+                      //       decoration: InputDecoration(
+                      //         border: OutlineInputBorder(
+                      //           borderSide: const BorderSide(
+                      //             color: Colors.grey,
+                      //             width: 2,
+                      //           ),
+                      //           borderRadius: BorderRadius.circular(5),
+                      //         ),
+                      //         label: const Text('Due Date'),
+                      //         hintText: 'Due Date',
+                      //         // enabledBorder: buildOutlineInputBorder(1),
+                      //         // focusedBorder: buildOutlineInputBorder(2),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       const SizedBox(height: 12),
                     ],
                   ),
@@ -196,18 +283,12 @@ class _FillDetailsState extends State<FillDetails> {
                                   if (value!.isEmpty) {
                                     return 'Field Must Be Required';
                                   }
-
-                                  for (int i = 0; i < value.length; i++) {
-                                    number.add(value[i]);
-                                  }
-
                                   for (int i = 0; i < value.length; i++) {
                                     int charCode = value.codeUnitAt(i);
                                     if (!(charCode >= 48 && charCode <= 57)) {
                                       ck = true;
                                     }
                                   }
-
                                   if (ck) {
                                     return 'String is not Allow in this Field';
                                   }
@@ -235,30 +316,28 @@ class _FillDetailsState extends State<FillDetails> {
                   child: TextButton(
                     onPressed: () {
                       setState(() {
-                        if (formkey.currentState!.validate()) {
-                          invoiceList.add(
-                            InvoiceModel(
-                              name: txtName.text,
-                              surName: txtSurName.text,
-                              category: txtCategory.text,
-                            ),
-                          );
-                          costList.add(costDetails);
-                          total = 0;
-                          for (int i = 0; i < costDetails.length; i++) {
-                            total =
-                                total + int.parse(costDetails[i]['Cost'].text);
+                          if (formkey.currentState!.validate()) {
+                            invoiceList.add(
+                              InvoiceModel(
+                                  name: txtName.text,
+                                  surName: txtSurName.text,
+                                  category: txtCategory.text,
+                                  date: txtDate.text,
+                                  dueDate: txtDueDate.text),
+                            );
+                            costList.add(costDetails);
+                            total = 0;
+                            for (int i = 0; i < costDetails.length; i++) {
+                              total = total +
+                                  int.parse(costDetails[i]['Cost'].text);
+                            }
+                            totalList.add(total.toDouble());
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const InvoiceGenerator()));
                           }
-                          totalList.add(total.toDouble());
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const InvoiceGenerator()));
-                          txtName.clear();
-                          txtSurName.clear();
-                          txtCategory.clear();
-                        }
                       });
                     },
                     child: const Text(
@@ -278,4 +357,4 @@ class _FillDetailsState extends State<FillDetails> {
 
 int total = 0;
 List totalList = [];
-List number = [];
+String date = '', dueDate = '';
