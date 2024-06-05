@@ -26,89 +26,138 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
     double height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        // backgroundColor: Color(0xff262729),
+        backgroundColor: const Color(0xff181A20),
         appBar: AppBar(
           leading: const Icon(
             Icons.menu,
             color: Colors.white,
           ),
           toolbarHeight: 70,
-          backgroundColor: Colors.blue,
+          backgroundColor: const Color(0xff0174ec),
           centerTitle: true,
           title: const Text(
             'Invoice Generator',
             style: TextStyle(color: Colors.white, fontSize: 25),
           ),
         ),
-        body: Column(
-          children: [
-            ...List.generate(
-              invoiceList.length,
-              (index) => GestureDetector(
-                onTap: () {
-                  setState(() {
-                    showDetails = [];
-                    SelectedIndex = index;
-                    showDetails = costList[SelectedIndex!];
-                  });
-                  Navigator.of(context).pushNamed('/DetailsPage');
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width : width / 1.2,
-                      child: ListTile(
-                        title: Text(
-                          '${invoiceList[index].category}',
-                          style: TextStyle(
-                              fontSize: width * 0.041, fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text('${invoiceList[index].name} ${invoiceList[index].surName}',
-                            style: TextStyle(
-                                fontSize: width * 0.041,
-                                color: Colors.black54,
-                                fontWeight: FontWeight.bold)),
-                        trailing: Text('${totalList[index]}',
-                            style: TextStyle(fontSize: width * 0.041)),
+        body: (blanckOrNot)
+            ? Column(
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: height * 0.21),
+                      child: Image.asset(
+                        'assets/images/file.png',
+                        height: height * 0.27,
                       ),
                     ),
-                    // IconButton(onPressed: (){
-                    //   setState(() {
-                    //     SelectedIndex = index;
-                    //     editOrNew = true;
-                    //   });
-                    //     print(index);
-                    //   Navigator.of(context).pushNamed('/FillDetails');
-                    // },icon:const Icon(Icons.edit),color: Colors.black,),
-                  ],
+                  ),
+                  const SizedBox(
+                    height: 22,
+                  ),
+                  Text(
+                    'Generate Your Invoice',
+                    style:
+                        TextStyle(color: Colors.white, fontSize: width * 0.062),
+                  )
+                ],
+              )
+            : Padding(
+                padding: const EdgeInsets.fromLTRB(15, 18, 10, 18),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ...List.generate(
+                        invoiceList.length,
+                        (index) => GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              showDetails = [];
+                              SelectedIndex = index;
+                              showDetails = costList[SelectedIndex!];
+                            });
+                            Navigator.of(context).pushNamed('/DetailsPage');
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 18),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.only(left: width * 0.01),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        color: const Color(0xff35383F)),
+                                    child: ListTile(
+                                      title: Text(
+                                        '${invoiceList[index].category}',
+                                        style: TextStyle(
+                                            fontSize: width * 0.045,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                      subtitle: Text(
+                                          '${invoiceList[index].name} ${invoiceList[index].surName}',
+                                          style: TextStyle(
+                                              fontSize: width * 0.045,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white70)),
+                                      trailing: Text('${totalList[index]}',
+                                          style: TextStyle(
+                                              fontSize: width * 0.045,
+                                              color: Colors.white)),
+                                    ),
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      editIndex = index;
+                                      editInvoiceList = costList[editIndex];
+                                    });
+                                    Navigator.of(context)
+                                        .pushNamed('/EditInformation');
+                                  },
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
+                                  ),
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
         floatingActionButton: GestureDetector(
             onTap: () {
+              blanckOrNot = false;
               txtCost = TextEditingController();
               txtCostName = TextEditingController();
               costDetails = [
                 {'costName': txtCostName, 'Cost': txtCost}
               ];
-              txtDate= TextEditingController();
-              txtDueDate= TextEditingController();
-              txtName= TextEditingController();
-              txtSurName= TextEditingController();
-              txtCategory= TextEditingController();
+              txtDate = TextEditingController();
+              txtDueDate = TextEditingController();
+              txtName = TextEditingController();
+              txtSurName = TextEditingController();
+              txtCategory = TextEditingController();
               editOrNew = false;
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => const FillDetails()));
             },
             child: Container(
-              width: width * 0.925 ,
+                width: width * 0.925,
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                    color: Colors.blue),
+                    borderRadius: BorderRadius.circular(10),
+                    color: const Color(0xff0174ec)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -117,7 +166,11 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
                       color: Colors.white,
                       size: width * 0.06,
                     ),
-                    Text(' New Invoice',style: TextStyle(color: Colors.white,fontSize: width * 0.04),)
+                    Text(
+                      ' Create New Invoice',
+                      style: TextStyle(
+                          color: Colors.white, fontSize: width * 0.045),
+                    )
                   ],
                 ))),
       ),
@@ -130,11 +183,13 @@ List<InvoiceModel> invoiceList = [];
 List costDetails = [];
 List costList = [];
 List showDetails = [];
-bool editOrNew = false;
+List editInvoiceList = [];
+bool editOrNew = false, blanckOrNot = true;
 late int editIndex;
 
 class InvoiceModel {
-  String? name, surName, category,date,dueDate;
+  String? name, surName, category, date, dueDate;
 
-  InvoiceModel({this.name, this.surName, this.category, this.date,this.dueDate});
+  InvoiceModel(
+      {this.name, this.surName, this.category, this.date, this.dueDate});
 }

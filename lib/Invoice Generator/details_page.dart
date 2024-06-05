@@ -20,13 +20,14 @@ class _DetailsPageState extends State<DetailsPage> {
     double height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color(0xff181A20),
         appBar: AppBar(
+          backgroundColor: const Color(0xff0174ec),
           title: Text(
             '${invoiceList[SelectedIndex!].category}',
             style: TextStyle(color: Colors.white, fontSize: width * 0.05),
           ),
           centerTitle: true,
-          backgroundColor: Colors.blue,
           toolbarHeight: 70,
           leading: IconButton(
             onPressed: () {
@@ -54,7 +55,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 height: height * 0.1,
                 width: width * 0.2,
                 decoration: const BoxDecoration(
-                    color: Colors.blue, shape: BoxShape.circle),
+                    color: Color(0xff0174ec), shape: BoxShape.circle),
                 child: const Icon(
                   Icons.picture_as_pdf,
                   color: Colors.white,
@@ -69,57 +70,58 @@ Padding invoiceBill(double width) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(12, 20, 12, 10),
     child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(
+          'Customer Name :',
+          style: TextStyle(fontSize: width * 0.058, color: Colors.white),
+        ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Customer',
-              style: TextStyle(fontSize: width * 0.064, color: Colors.black87),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text('    ${invoiceList[SelectedIndex!].name}',
-                    style:
-                        TextStyle(fontSize: width * 0.084, color: Colors.grey)),
-                Text('    ${invoiceList[SelectedIndex!].surName}',
-                    style:
-                        TextStyle(fontSize: width * 0.084, color: Colors.grey)),
-              ],
-            ),
+            Text('${invoiceList[SelectedIndex!].name}',
+                style:
+                    TextStyle(fontSize: width * 0.084, color: Colors.white70)),
+            Text(' ${invoiceList[SelectedIndex!].surName}',
+                style:
+                    TextStyle(fontSize: width * 0.084, color: Colors.white70)),
           ],
         ),
         const Divider(
           thickness: 2,
-          color: Color(0xffc3c3c3ff),
+          color: Colors.white70,
         ),
         const SizedBox(height: 8),
         Text(
           'Invoice Items',
-          style: TextStyle(fontSize: width * 0.058, color: Colors.black),
+          style: TextStyle(fontSize: width * 0.058, color: Colors.white),
         ),
         ...List.generate(
           showDetails.length,
           (index) => ListTile(
             leading: Text(
               showDetails[index]['costName'].text,
-              style: TextStyle(fontSize: width * 0.047, color: Colors.grey),
+              style: TextStyle(fontSize: width * 0.047, color: Colors.white70),
             ),
             trailing: Text(
-              showDetails[index]['Cost'].text,
-              style: TextStyle(fontSize: width * 0.047, color: Colors.grey),
+              '${double.parse(showDetails[index]['Cost'].text)}/-',
+              style: TextStyle(fontSize: width * 0.047, color: Colors.white70),
             ),
           ),
         ),
-        ListTile(
-          leading: Text(
-            'Total',
-            style: TextStyle(color: Colors.black87, fontSize: width * 0.076),
-          ),
-          trailing: Text(
-            '${totalList[SelectedIndex!].toDouble()}/-',
-            style: TextStyle(color: Colors.black87, fontSize: width * 0.076),
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Total',
+                style: TextStyle(color: Colors.white, fontSize: width * 0.065),
+              ),
+              Text(
+                '${totalList[SelectedIndex!]}/-',
+                style: TextStyle(color: Colors.white, fontSize: width * 0.065),
+              ),
+            ],
           ),
         ),
         const Divider(

@@ -3,6 +3,7 @@ import 'package:modify_text/ListView_ListTile/List_view.dart';
 import 'Current_Date_Time/Date_Time_Picker.dart';
 import 'Invoice Generator/Pdf.dart';
 import 'Invoice Generator/details_page.dart';
+import 'Invoice Generator/edit_information.dart';
 import 'Invoice Generator/fill_information.dart';
 import 'Invoice Generator/invoice_generator.dart';
 import 'Table/tableExample.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const InvoiceGenerator(),
         '/FillDetails': (context) => const FillDetails(),
         '/DetailsPage': (context) => const DetailsPage(),
+        '/EditInformation': (context) => const EditInformation(),
         '/pdf': (context) => const PdfGenerator(),
       }
     );

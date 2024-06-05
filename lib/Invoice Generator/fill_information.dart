@@ -15,13 +15,14 @@ class _FillDetailsState extends State<FillDetails> {
     double height = MediaQuery.of(context).size.height;
     return SafeArea(
         child: Scaffold(
+      backgroundColor: const Color(0xff181A20),
       appBar: AppBar(
         leading: const Icon(
           Icons.arrow_back,
-          color: Colors.blue,
+          color: const Color(0xff0174ec),
         ),
         toolbarHeight: 70,
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xff0174ec),
         centerTitle: true,
         title: const Text(
           'Fill Details',
@@ -40,17 +41,19 @@ class _FillDetailsState extends State<FillDetails> {
                 Container(
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    border: Border.all(),
-                  ),
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(8)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
                         "Fill Below Details",
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       const SizedBox(height: 12),
                       TextFormField(
+                        cursorColor: const Color(0xff0174ec),
+                        style: const TextStyle(color: Colors.white),
                         textInputAction: TextInputAction.next,
                         controller: txtName,
                         validator: (value) {
@@ -59,6 +62,14 @@ class _FillDetailsState extends State<FillDetails> {
                           }
                         },
                         decoration: InputDecoration(
+                            labelStyle: const TextStyle(color: Colors.white70),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Color(0xff0174ec),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
                             border: OutlineInputBorder(
                               borderSide: const BorderSide(
                                 color: Colors.grey,
@@ -71,6 +82,8 @@ class _FillDetailsState extends State<FillDetails> {
                       Container(
                         margin: const EdgeInsets.only(top: 20, bottom: 20),
                         child: TextFormField(
+                          cursorColor: const Color(0xff0174ec),
+                          style: const TextStyle(color: Colors.white),
                           textInputAction: TextInputAction.next,
                           controller: txtSurName,
                           validator: (value) {
@@ -79,6 +92,15 @@ class _FillDetailsState extends State<FillDetails> {
                             }
                           },
                           decoration: InputDecoration(
+                              labelStyle:
+                                  const TextStyle(color: Colors.white70),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Color(0xff0174ec),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
                               border: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                   color: Colors.grey,
@@ -90,6 +112,8 @@ class _FillDetailsState extends State<FillDetails> {
                         ),
                       ),
                       TextFormField(
+                        cursorColor: const Color(0xff0174ec),
+                        style: const TextStyle(color: Colors.white),
                         textInputAction: TextInputAction.next,
                         controller: txtCategory,
                         validator: (value) {
@@ -98,6 +122,14 @@ class _FillDetailsState extends State<FillDetails> {
                           }
                         },
                         decoration: InputDecoration(
+                          labelStyle: const TextStyle(color: Colors.white70),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xff0174ec),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                           border: OutlineInputBorder(
                             borderSide: const BorderSide(
                               color: Colors.grey,
@@ -109,92 +141,114 @@ class _FillDetailsState extends State<FillDetails> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     setState(() async {
-                      //       DateTime? datePicked = await showDatePicker(
-                      //           barrierColor: Colors.black54,
-                      //           context: context,
-                      //           firstDate: DateTime(1900),
-                      //           initialDate: DateTime.now(),
-                      //           lastDate: DateTime.now());
-                      //       if (datePicked != null) {
-                      //         date =
-                      //             '${datePicked.day}/${datePicked.month}/${datePicked.year}';
-                      //         txtDate.text = date;
-                      //       }
-                      //     });
-                      //   },
-                      //   child: AbsorbPointer(
-                      //     absorbing: true,
-                      //     child: TextFormField(
-                      //       validator: (value) {
-                      //         if (value!.isEmpty) {
-                      //           return 'Field Must be Required!';
-                      //         }
-                      //       },
-                      //       controller: txtDate,
-                      //       autofocus: false,
-                      //       decoration: InputDecoration(
-                      //         border: OutlineInputBorder(
-                      //           borderSide: const BorderSide(
-                      //             color: Colors.grey,
-                      //             width: 2,
-                      //           ),
-                      //           borderRadius: BorderRadius.circular(5),
-                      //         ),
-                      //         label: const Text('Announce Date'),
-                      //         hintText: 'Announce Date',
-                      //         // enabledBorder: buildOutlineInputBorder(1),
-                      //         // focusedBorder: buildOutlineInputBorder(2),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // const SizedBox(height: 20),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     setState(() async {
-                      //       DateTime? datePicked = await showDatePicker(
-                      //           barrierDismissible: false,
-                      //           barrierColor: Colors.black54,
-                      //           context: context,
-                      //           firstDate: DateTime.now(),
-                      //           initialDate: DateTime.now(),
-                      //           lastDate: DateTime(2025));
-                      //       if (datePicked != null) {
-                      //         dueDate =
-                      //             '${datePicked.day}/${datePicked.month}/${datePicked.year}';
-                      //         txtDueDate.text = dueDate;
-                      //       }
-                      //     });
-                      //   },
-                      //   child: AbsorbPointer(
-                      //     absorbing: true,
-                      //     child: TextFormField(
-                      //       validator: (value) {
-                      //         if (value!.isEmpty) {
-                      //           return 'Field Must be Required!';
-                      //         }
-                      //       },
-                      //       controller: txtDueDate,
-                      //       autofocus: false,
-                      //       decoration: InputDecoration(
-                      //         border: OutlineInputBorder(
-                      //           borderSide: const BorderSide(
-                      //             color: Colors.grey,
-                      //             width: 2,
-                      //           ),
-                      //           borderRadius: BorderRadius.circular(5),
-                      //         ),
-                      //         label: const Text('Due Date'),
-                      //         hintText: 'Due Date',
-                      //         // enabledBorder: buildOutlineInputBorder(1),
-                      //         // focusedBorder: buildOutlineInputBorder(2),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() async {
+                            DateTime? datePicked = await showDatePicker(
+                                barrierColor: Colors.black54,
+                                context: context,
+                                firstDate: DateTime(1900),
+                                initialDate: DateTime.now(),
+                                lastDate: DateTime.now());
+                            if (datePicked != null) {
+                              date =
+                                  '${datePicked.day}/${datePicked.month}/${datePicked.year}';
+                              txtDate.text = date;
+                            }
+                          });
+                        },
+                        child: AbsorbPointer(
+                          absorbing: true,
+                          child: TextFormField(
+                            cursorColor: const Color(0xff0174ec),
+                            style: const TextStyle(color: Colors.white),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Field Must be Required!';
+                              }
+                            },
+                            controller: txtDate,
+                            autofocus: false,
+                            decoration: InputDecoration(
+                              labelStyle:
+                                  const TextStyle(color: Colors.white70),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Color(0xff0174ec),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Colors.grey,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              label: const Text('Announce Date'),
+                              hintText: 'Announce Date',
+                              // enabledBorder: buildOutlineInputBorder(1),
+                              // focusedBorder: buildOutlineInputBorder(2),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() async {
+                            DateTime? datePicked = await showDatePicker(
+                                barrierDismissible: false,
+                                barrierColor: Colors.black54,
+                                context: context,
+                                firstDate: DateTime.now(),
+                                initialDate: DateTime.now(),
+                                lastDate: DateTime(2025));
+                            if (datePicked != null) {
+                              dueDate =
+                                  '${datePicked.day}/${datePicked.month}/${datePicked.year}';
+                              txtDueDate.text = dueDate;
+                            }
+                          });
+                        },
+                        child: AbsorbPointer(
+                          absorbing: true,
+                          child: TextFormField(
+                            cursorColor: const Color(0xff0174ec),
+                            style: const TextStyle(color: Colors.white),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Field Must be Required!';
+                              }
+                            },
+                            controller: txtDueDate,
+                            autofocus: false,
+                            decoration: InputDecoration(
+                              labelStyle:
+                                  const TextStyle(color: Colors.white70),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Color(0xff0174ec),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Colors.grey,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              label: const Text('Due Date'),
+                              hintText: 'Due Date',
+                              // enabledBorder: buildOutlineInputBorder(1),
+                              // focusedBorder: buildOutlineInputBorder(2),
+                            ),
+                          ),
+                        ),
+                      ),
                       const SizedBox(height: 12),
                     ],
                   ),
@@ -204,8 +258,8 @@ class _FillDetailsState extends State<FillDetails> {
                   margin: EdgeInsets.only(top: height * 0.03),
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
-                    border: Border.all(),
-                  ),
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(8)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -213,7 +267,7 @@ class _FillDetailsState extends State<FillDetails> {
                         children: [
                           const Text(
                             "Enter Cost ",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
                           const Spacer(),
                           IconButton(
@@ -228,6 +282,7 @@ class _FillDetailsState extends State<FillDetails> {
                             icon: const Icon(
                               Icons.add,
                               size: 30,
+                              color: Colors.white,
                             ),
                           ),
                           IconButton(
@@ -239,6 +294,7 @@ class _FillDetailsState extends State<FillDetails> {
                             icon: const Icon(
                               Icons.delete,
                               size: 30,
+                              color: Colors.white,
                             ),
                           ),
                         ],
@@ -252,6 +308,8 @@ class _FillDetailsState extends State<FillDetails> {
                               width: width * 0.45,
                               margin: EdgeInsets.only(bottom: height * 0.03),
                               child: TextFormField(
+                                cursorColor: const Color(0xff0174ec),
+                                style: const TextStyle(color: Colors.white),
                                 textInputAction: TextInputAction.next,
                                 controller: costDetails[index]['costName'],
                                 validator: (value) {
@@ -260,6 +318,15 @@ class _FillDetailsState extends State<FillDetails> {
                                   }
                                 },
                                 decoration: InputDecoration(
+                                    labelStyle:
+                                        const TextStyle(color: Colors.white70),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Color(0xff0174ec),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
                                     border: OutlineInputBorder(
                                       borderSide: const BorderSide(
                                         color: Colors.grey,
@@ -275,6 +342,8 @@ class _FillDetailsState extends State<FillDetails> {
                               margin: EdgeInsets.only(bottom: height * 0.03),
                               width: width * 0.35,
                               child: TextFormField(
+                                cursorColor: const Color(0xff0174ec),
+                                style: const TextStyle(color: Colors.white),
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.number,
                                 controller: costDetails[index]['Cost'],
@@ -294,6 +363,15 @@ class _FillDetailsState extends State<FillDetails> {
                                   }
                                 },
                                 decoration: InputDecoration(
+                                    labelStyle:
+                                        const TextStyle(color: Colors.white70),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Color(0xff0174ec),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
                                     border: OutlineInputBorder(
                                       borderSide: const BorderSide(
                                         color: Colors.grey,
@@ -316,28 +394,28 @@ class _FillDetailsState extends State<FillDetails> {
                   child: TextButton(
                     onPressed: () {
                       setState(() {
-                          if (formkey.currentState!.validate()) {
-                            invoiceList.add(
-                              InvoiceModel(
-                                  name: txtName.text,
-                                  surName: txtSurName.text,
-                                  category: txtCategory.text,
-                                  date: txtDate.text,
-                                  dueDate: txtDueDate.text),
-                            );
-                            costList.add(costDetails);
-                            total = 0;
-                            for (int i = 0; i < costDetails.length; i++) {
-                              total = total +
-                                  int.parse(costDetails[i]['Cost'].text);
-                            }
-                            totalList.add(total.toDouble());
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const InvoiceGenerator()));
+                        if (formkey.currentState!.validate()) {
+                          invoiceList.add(
+                            InvoiceModel(
+                                name: txtName.text,
+                                surName: txtSurName.text,
+                                category: txtCategory.text,
+                                date: txtDate.text,
+                                dueDate: txtDueDate.text),
+                          );
+                          costList.add(costDetails);
+                          total = 0;
+                          for (int i = 0; i < costDetails.length; i++) {
+                            total =
+                                total + int.parse(costDetails[i]['Cost'].text);
                           }
+                          totalList.add(total.toDouble());
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const InvoiceGenerator()));
+                        }
                       });
                     },
                     child: const Text(

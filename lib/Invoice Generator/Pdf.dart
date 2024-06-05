@@ -22,7 +22,7 @@ class _PdfGeneratorState extends State<PdfGenerator> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          backgroundColor: const Color(0xff0174ec),
           toolbarHeight: 70,
           centerTitle: true,
           leading: IconButton(
