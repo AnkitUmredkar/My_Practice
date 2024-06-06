@@ -25,7 +25,7 @@ class _DetailsPageState extends State<DetailsPage> {
           backgroundColor: const Color(0xff0174ec),
           title: Text(
             '${invoiceList[SelectedIndex!].category}',
-            style: TextStyle(color: Colors.white, fontSize: width * 0.07),
+            style: TextStyle(color: Colors.white, fontSize: width * 0.06),
           ),
           centerTitle: true,
           toolbarHeight: 70,
