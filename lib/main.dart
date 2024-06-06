@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modify_text/Invoice%20Generator/splash_screen.dart';
 import 'package:modify_text/ListView_ListTile/List_view.dart';
 import 'Current_Date_Time/Date_Time_Picker.dart';
 import 'Invoice Generator/Pdf.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
 
       //TODO Invoice Generator
       routes: {
-        '/': (context) => const InvoiceGenerator(),
+        '/': (context) => const SplashScreen(),
+        '/HomePage': (context) => const InvoiceGenerator(),
         '/FillDetails': (context) => const FillDetails(),
         '/DetailsPage': (context) => const DetailsPage(),
         '/EditInformation': (context) => const EditInformation(),

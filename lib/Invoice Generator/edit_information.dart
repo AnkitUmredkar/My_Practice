@@ -26,9 +26,9 @@ class _EditInformationState extends State<EditInformation> {
           toolbarHeight: 70,
           backgroundColor: const Color(0xff0174ec),
           centerTitle: true,
-          title: const Text(
+          title: Text(
             'Edit Invoice',
-            style: TextStyle(color: Colors.white, fontSize: 25),
+            style: TextStyle(color: Colors.white, fontSize: width * 0.07),
           ),
         ),
         body: Form(
@@ -36,7 +36,7 @@ class _EditInformationState extends State<EditInformation> {
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.fromLTRB(15, 20, 15, 15),
               child: Column(
                 children: [
                   //todo------------------------> Name,SurName And Category
@@ -117,7 +117,6 @@ class _EditInformationState extends State<EditInformation> {
                         TextFormField(
                           cursorColor: const Color(0xff0174ec),
                           style: const TextStyle(color: Colors.white),
-                          textInputAction: TextInputAction.next,
                           controller: txtCategory,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -295,7 +294,9 @@ class _EditInformationState extends State<EditInformation> {
                             IconButton(
                               onPressed: () {
                                 setState(() {
-                                  costDetails.removeLast();
+                                  if(editInvoiceList.length > 1){
+                                    editInvoiceList.removeLast();
+                                  }
                                 });
                               },
                               icon: const Icon(
@@ -403,6 +404,11 @@ class _EditInformationState extends State<EditInformation> {
                       onPressed: () {
                         setState(() {
                           if (formkey.currentState!.validate()) {
+                            // invoiceList[editIndex].name = userInfoList[editIndex]['txtName'].text;
+                            // invoiceList[editIndex].surName = userInfoList[editIndex]['txtSurName'].text;
+                            // invoiceList[editIndex].category = userInfoList[editIndex]['txtCategory'].text;
+                            // invoiceList[editIndex].date = userInfoList[editIndex]['txtDate'].text;
+                            // invoiceList[editIndex].dueDate = userInfoList[editIndex]['txtDueDate'].text;
                             invoiceList[editIndex].name = txtName.text;
                             invoiceList[editIndex].surName = txtSurName.text;
                             invoiceList[editIndex].category = txtCategory.text;

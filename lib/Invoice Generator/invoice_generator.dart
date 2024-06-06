@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'fill_information.dart';
 
@@ -35,9 +33,9 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
           toolbarHeight: 70,
           backgroundColor: const Color(0xff0174ec),
           centerTitle: true,
-          title: const Text(
+          title: Text(
             'Invoice Generator',
-            style: TextStyle(color: Colors.white, fontSize: 25),
+            style: TextStyle(color: Colors.white, fontSize: width * 0.07),
           ),
         ),
         body: (blanckOrNot)
@@ -116,6 +114,11 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
                                     setState(() {
                                       editIndex = index;
                                       editInvoiceList = costList[editIndex];
+                                      txtName.text = invoiceList[editIndex].name!;
+                                      txtSurName.text = invoiceList[editIndex].surName!;
+                                      txtCategory.text = invoiceList[editIndex].category!;
+                                      txtDate.text = invoiceList[editIndex].date!;
+                                      txtDueDate.text = invoiceList[editIndex].dueDate!;
                                     });
                                     Navigator.of(context)
                                         .pushNamed('/EditInformation');
@@ -148,7 +151,6 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
               txtName = TextEditingController();
               txtSurName = TextEditingController();
               txtCategory = TextEditingController();
-              editOrNew = false;
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => const FillDetails()));
             },
@@ -169,7 +171,7 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
                     Text(
                       ' Create New Invoice',
                       style: TextStyle(
-                          color: Colors.white, fontSize: width * 0.045),
+                          color: Colors.white, fontSize: width * 0.05),
                     )
                   ],
                 ))),
@@ -180,11 +182,8 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
 
 int? SelectedIndex;
 List<InvoiceModel> invoiceList = [];
-List costDetails = [];
-List costList = [];
-List showDetails = [];
-List editInvoiceList = [];
-bool editOrNew = false, blanckOrNot = true;
+List costDetails = [],costList = [],showDetails = [],editInvoiceList = [],userInfoList = [];
+bool blanckOrNot = true;
 late int editIndex;
 
 class InvoiceModel {

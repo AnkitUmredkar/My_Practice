@@ -35,7 +35,7 @@ class _PdfGeneratorState extends State<PdfGenerator> {
               )),
           title: Text(
             'PDF Preview',
-            style: TextStyle(color: Colors.white, fontSize: width * 0.05),
+            style: TextStyle(color: Colors.white, fontSize: width * 0.07),
           ),
         ),
         body: PdfPreview(
@@ -135,7 +135,7 @@ Future<Uint8List> generatePdf(double width, double height) async {
                                   color: const PdfColor.fromInt(0xff383738)))),
                       pd.Align(
                         alignment: pd.Alignment.centerRight,
-                        child: pd.Text('${invoiceList[SelectedIndex!].dueDate}',
+                        child: pd.Text('${invoiceList[SelectedIndex!].date}',
                             style: pd.TextStyle(fontSize: width * 0.04)),
                       ),
                       pd.SizedBox(height: 2),
@@ -148,7 +148,7 @@ Future<Uint8List> generatePdf(double width, double height) async {
                                   color: const PdfColor.fromInt(0xff383738)))),
                       pd.Align(
                         alignment: pd.Alignment.centerRight,
-                        child: pd.Text('${invoiceList[SelectedIndex!].date}',
+                        child: pd.Text('${invoiceList[SelectedIndex!].dueDate}',
                             style: pd.TextStyle(fontSize: width * 0.04)),
                       ),
                     ],

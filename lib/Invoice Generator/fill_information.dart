@@ -19,14 +19,14 @@ class _FillDetailsState extends State<FillDetails> {
       appBar: AppBar(
         leading: const Icon(
           Icons.arrow_back,
-          color: const Color(0xff0174ec),
+          color: Color(0xff0174ec),
         ),
         toolbarHeight: 70,
         backgroundColor: const Color(0xff0174ec),
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Fill Details',
-          style: TextStyle(color: Colors.white, fontSize: 25),
+          style: TextStyle(color: Colors.white, fontSize: width * 0.07),
         ),
       ),
       body: Form(
@@ -34,7 +34,7 @@ class _FillDetailsState extends State<FillDetails> {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.fromLTRB(15,20,15,15),
             child: Column(
               children: [
                 //todo------------------------> Name,SurName And Category
@@ -114,7 +114,6 @@ class _FillDetailsState extends State<FillDetails> {
                       TextFormField(
                         cursorColor: const Color(0xff0174ec),
                         style: const TextStyle(color: Colors.white),
-                        textInputAction: TextInputAction.next,
                         controller: txtCategory,
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -403,6 +402,7 @@ class _FillDetailsState extends State<FillDetails> {
                                 date: txtDate.text,
                                 dueDate: txtDueDate.text),
                           );
+                          userInfoList.add({'txtName' : txtName,'txtSurName' : txtSurName,'txtCategory' : txtCategory,'txtDate' : txtDate,'txtDueDate' : txtDueDate,});
                           costList.add(costDetails);
                           total = 0;
                           for (int i = 0; i < costDetails.length; i++) {
