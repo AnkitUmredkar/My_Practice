@@ -14,12 +14,12 @@ class _DateTimeFromCalenderState extends State<DateTimeFromCalender> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: TimePicker(context),
+        body: timePicker(context),
       ),
     );
   }
 
-  Center TimePicker(BuildContext context) {
+  Center timePicker(BuildContext context) {
     return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -51,8 +51,9 @@ class _DateTimeFromCalenderState extends State<DateTimeFromCalender> {
         ),
       );
   }
+
   //todo Date Picker
-  Center DatePicker(BuildContext context) {
+  Center datePicker(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

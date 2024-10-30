@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'details_page.dart';
 import 'fill_information.dart';
 
 GlobalKey<FormState> formkey = GlobalKey();
@@ -35,7 +37,7 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
           centerTitle: true,
           title: Text(
             'Invoice Generator',
-            style: TextStyle(color: Colors.white, fontSize: width * 0.07),
+            style: TextStyle(color: Colors.white, fontSize: width * 0.064),
           ),
         ),
         body: (blanckOrNot)
@@ -74,7 +76,17 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
                               SelectedIndex = index;
                               showDetails = costList[SelectedIndex!];
                             });
-                            Navigator.of(context).pushNamed('/DetailsPage');
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    child: DetailsPage(),
+                                    type: PageTransitionType.bottomToTopPop,
+                                    childCurrent: InvoiceGenerator(),
+                                    alignment: Alignment.center,
+                                    duration: Duration(seconds: 1)
+                                ));
+
+                            // Navigator.of(context).pushNamed('/DetailsPage');
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 18),
@@ -114,11 +126,16 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
                                     setState(() {
                                       editIndex = index;
                                       editInvoiceList = costList[editIndex];
-                                      txtName.text = invoiceList[editIndex].name!;
-                                      txtSurName.text = invoiceList[editIndex].surName!;
-                                      txtCategory.text = invoiceList[editIndex].category!;
-                                      txtDate.text = invoiceList[editIndex].date!;
-                                      txtDueDate.text = invoiceList[editIndex].dueDate!;
+                                      txtName.text =
+                                          invoiceList[editIndex].name!;
+                                      txtSurName.text =
+                                          invoiceList[editIndex].surName!;
+                                      txtCategory.text =
+                                          invoiceList[editIndex].category!;
+                                      txtDate.text =
+                                          invoiceList[editIndex].date!;
+                                      txtDueDate.text =
+                                          invoiceList[editIndex].dueDate!;
                                     });
                                     Navigator.of(context)
                                         .pushNamed('/EditInformation');
@@ -151,8 +168,11 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
               txtName = TextEditingController();
               txtSurName = TextEditingController();
               txtCategory = TextEditingController();
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const FillDetails()));
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      child: FillDetails(),
+                      type: PageTransitionType.leftToRight));
             },
             child: Container(
                 width: width * 0.925,
@@ -182,7 +202,11 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
 
 int? SelectedIndex;
 List<InvoiceModel> invoiceList = [];
-List costDetails = [],costList = [],showDetails = [],editInvoiceList = [],userInfoList = [];
+List costDetails = [],
+    costList = [],
+    showDetails = [],
+    editInvoiceList = [],
+    userInfoList = [];
 bool blanckOrNot = true;
 late int editIndex;
 

@@ -21,7 +21,7 @@ class _listViewState extends State<listView> {
           ),
           centerTitle: true,
         ),
-        body: ListView_Builder(),
+        body: ListView_Separated(),
       ),
     );
   }
@@ -69,7 +69,7 @@ ListView ListView_Separated() {
     separatorBuilder: (context, index) {
       return const Divider(
         color: Colors.blue,
-        height: 60,
+        height: 40,
         thickness: 3,
         endIndent: 10,
         indent: 5,
